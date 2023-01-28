@@ -140,18 +140,18 @@ test_that("generatePopCFMLoadsErrors() produces error with errant type", {
 #### generatePopResidCorrs####
 test_that("generatePopResidCorrs produces correct output for weak", {
   set.seed(123)
-  expect_equal(generatePopResidCorrs(var = "X", type = "weak", num = 5), "X_A1 ~~ 0.04*X_B1\nX_A2 ~~ 0.08*X_B2\nX_A3 ~~ 0.05*X_B3\nX_A4 ~~ 0.09*X_B4\nX_A5 ~~ 0.09*X_B5")
+  expect_equal(generatePopResidCorrs(var = "X", type = "weak", num = 5)$rescors, "X_A1 ~~ 0.04*X_B1\nX_A2 ~~ 0.08*X_B2\nX_A3 ~~ 0.05*X_B3\nX_A4 ~~ 0.09*X_B4\nX_A5 ~~ 0.09*X_B5")
 })
 
 
 test_that("generatePopResidCorrs produces correct output for strong", {
   set.seed(123)
-  expect_equal(generatePopResidCorrs(var = "X", type = "strong", num = 5), "X_A1 ~~ 0.24*X_B1\nX_A2 ~~ 0.28*X_B2\nX_A3 ~~ 0.25*X_B3\nX_A4 ~~ 0.29*X_B4\nX_A5 ~~ 0.29*X_B5")
+  expect_equal(generatePopResidCorrs(var = "X", type = "strong", num = 5)$rescors, "X_A1 ~~ 0.24*X_B1\nX_A2 ~~ 0.28*X_B2\nX_A3 ~~ 0.25*X_B3\nX_A4 ~~ 0.29*X_B4\nX_A5 ~~ 0.29*X_B5")
 })
 
 test_that("generatePopResidCorrs produces correct output for very strong", {
   set.seed(123)
-  expect_equal(generatePopResidCorrs(var = "X", type = "very strong", num = 5), "X_A1 ~~ 0.34*X_B1\nX_A2 ~~ 0.39*X_B2\nX_A3 ~~ 0.35*X_B3\nX_A4 ~~ 0.4*X_B4\nX_A5 ~~ 0.4*X_B5")
+  expect_equal(generatePopResidCorrs(var = "X", type = "very strong", num = 5)$rescors, "X_A1 ~~ 0.34*X_B1\nX_A2 ~~ 0.39*X_B2\nX_A3 ~~ 0.35*X_B3\nX_A4 ~~ 0.4*X_B4\nX_A5 ~~ 0.4*X_B5")
 })
 
 test_that("generatePopResidCorrs produces error for errant type", {
@@ -161,27 +161,27 @@ test_that("generatePopResidCorrs produces error for errant type", {
 #### generateICCs####
 test_that("generateICCs produces correct output for weak", {
   set.seed(123)
-  expect_equal(generateICCs(var = "X", type = "weak"), "X_A ~~ 0.04*X_B")
+  expect_equal(generateICCs(var = "X", type = "weak")$icc, "X_A ~~ 0.04*X_B")
 })
 
 test_that("generateICCs produces correct output for moderate", {
   set.seed(123)
-  expect_equal(generateICCs(var = "X", type = "moderate"), "X_A ~~ 0.14*X_B")
+  expect_equal(generateICCs(var = "X", type = "moderate")$icc, "X_A ~~ 0.14*X_B")
 })
 
 test_that("generateICCs produces correct output for very strong", {
   set.seed(123)
-  expect_equal(generateICCs(var = "X", type = "very strong"), "X_A ~~ 0.34*X_B")
+  expect_equal(generateICCs(var = "X", type = "very strong")$icc, "X_A ~~ 0.34*X_B")
 })
 #### generateIPCs####
 test_that("generateIPCs produces correct output for weak", {
   set.seed(123)
-  expect_equal(generateIPCs(var = "A", type = "weak"), "X_A ~~ 0.04*Y_A")
+  expect_equal(generateIPCs(var = "A", type = "weak")$ipc, "X_A ~~ 0.04*Y_A")
 })
 
 test_that("generateIPCs produces correct output for strong", {
   set.seed(123)
-  expect_equal(generateIPCs(var = "A", type = "strong"), "X_A ~~ 0.24*Y_A")
+  expect_equal(generateIPCs(var = "A", type = "strong")$ipc, "X_A ~~ 0.24*Y_A")
 })
 #### generateLVariances####
 test_that("generateIPCs produces correct output", {
@@ -191,32 +191,32 @@ test_that("generateIPCs produces correct output", {
 #### generateActors####
 test_that("generateActors produces correct output for weak", {
   set.seed(123)
-  expect_equal(generateActors(partner = "A", type = "weak"), "Y_A ~ 0.04*X_A")
+  expect_equal(generateActors(partner = "A", type = "weak")$actorEffect, "Y_A ~ 0.04*X_A")
 })
 
 test_that("generateActors produces correct output for strong", {
   set.seed(123)
-  expect_equal(generateActors(partner = "A", type = "strong"), "Y_A ~ 0.24*X_A")
+  expect_equal(generateActors(partner = "A", type = "strong")$actorEffect, "Y_A ~ 0.24*X_A")
 })
 #### generatePartners####
 test_that("generatePartners produces correct output for weak", {
   set.seed(123)
-  expect_equal(generatePartners(partner = "A", type = "weak"), "Y_A ~ 0.04*X_B")
+  expect_equal(generatePartners(partner = "A", type = "weak")$partnerEffect, "Y_A ~ 0.04*X_B")
 })
 
 test_that("generatePartners produces correct output for moderate", {
   set.seed(123)
-  expect_equal(generatePartners(partner = "A", type = "moderate"), "Y_A ~ 0.14*X_B")
+  expect_equal(generatePartners(partner = "A", type = "moderate")$partnerEffect, "Y_A ~ 0.14*X_B")
 })
 
 test_that("generatePartners produces correct output for strong", {
   set.seed(123)
-  expect_equal(generatePartners(partner = "A", type = "strong"), "Y_A ~ 0.24*X_B")
+  expect_equal(generatePartners(partner = "A", type = "strong")$partnerEffect, "Y_A ~ 0.24*X_B")
 })
 
 test_that("generatePartners produces correct output for very strong", {
   set.seed(123)
-  expect_equal(generatePartners(partner = "A", type = "very strong"), "Y_A ~ 0.34*X_B")
+  expect_equal(generatePartners(partner = "A", type = "very strong")$partnerEffect, "Y_A ~ 0.34*X_B")
 })
 #### generatePopCFMDySlopeError####
 test_that("generatePopCFMDySlopeError produces correct output for weak", {

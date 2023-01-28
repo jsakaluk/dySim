@@ -48,12 +48,12 @@ scriptPopModAPIM <- function(popModList){
   Partner_B <- generatePartners(partner = "B", type = popModList$partnerB)
 
   popModScript <- sprintf("#Measurement Model\n\n## Loadings\n%s\n%s\n%s\n%s\n\n## Uniquenesses\n%s\n%s\n%s\n%s\n\n## Residual Correlations\n%s\n%s\n\n# Structural Model
-                        \n\n## Latent (Co)Variances\n%s\n%s\n%s\n%s\n%s\n%s\n\n## Actor and Partner Effects\n%s\n%s\n%s\n%s",
+                        \n## Latent (Co)Variances\n%s\n%s\n%s\n%s\n%s\n%s\n\n## Actor and Partner Effects\n%s\n%s\n%s\n%s",
                         X_A_loads$loadings, X_B_loads$loadings, Y_A_loads$loadings, Y_B_loads$loadings,
                         X_A_loads$errors, X_B_loads$errors, Y_A_loads$errors, Y_B_loads$errors,
-                        X_rescorrs, Y_rescorrs,
-                        XA_LatentVariance, XB_LatentVariance, YA_LatentVariance, YB_LatentVariance, X_ICC, Y_ICC,
-                        Actor_A, Actor_B, Partner_A, Partner_B)
+                        X_rescorrs$rescors, Y_rescorrs$rescors,
+                        XA_LatentVariance, XB_LatentVariance, YA_LatentVariance, YB_LatentVariance, X_ICC$icc, Y_ICC$icc,
+                        Actor_A$actorEffect, Actor_B$actorEffect, Partner_A$partnerEffect, Partner_B$partnerEffect)
   return(popModScript)
   #cat(popModScript, "\n")
 }
@@ -83,8 +83,8 @@ scriptPopModCFM <- function(popModList){
                         X_A_loads$loadings, X_B_loads$loadings, Y_A_loads$loadings, Y_B_loads$loadings,
                         X_Dy_Loads$loadings, Y_Dy_Loads$loadings,
                         X_A_loads$errors, X_B_loads$errors, Y_A_loads$errors, Y_B_loads$errors,
-                        X_rescorrs, Y_rescorrs,
-                        X_Dy_Loads$errors, Y_Dy_Loads$errors, X_Dy_LatentVariance, Dy_Slope_Error$residual, A_IPC, B_IPC,
+                        X_rescorrs$rescors, Y_rescorrs$rescors,
+                        X_Dy_Loads$errors, Y_Dy_Loads$errors, X_Dy_LatentVariance, Dy_Slope_Error$residual, A_IPC$ipc, B_IPC$ipc,
                         Dy_Slope_Error$slope)
 
   return(popModScript)

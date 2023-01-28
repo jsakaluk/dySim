@@ -12,6 +12,7 @@ Convenience functions for simulating data using a variety of popular models of d
 Useful links:
 \itemize{
   \item \url{https://github.com/jsakaluk/dySim}
+  \item \url{https://jsakaluk.github.io/dySim/}
   \item Report bugs at \url{https://github.com/jsakaluk/dySim/issues}
 }
 

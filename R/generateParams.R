@@ -14,7 +14,7 @@
 #' @param num number of items for which parameters are needed
 #' @param value numeric value for a given parameter
 #'
-#' @return character vector (or list of character vectors) of lavaan script elements
+#' @return vector (or list of  vectors) of lavaan script elements and/or parameter values
 #' @family helpers
 #'
 
@@ -42,7 +42,6 @@ generatePopLoadsErrors <- function(var = "X", partner = "A", type = NULL, num = 
   items <- num
 
   varnames <- generateObsNames(lv, person, items)
-
   #determine loading values for
   if(type == "weak"){
     #loadings fall between .3 and .49
@@ -69,17 +68,17 @@ generatePopLoadsErrors <- function(var = "X", partner = "A", type = NULL, num = 
   errors <- 1-(values^2)
 
   #combine pop values and variable names w lavaan constraint operator
-  loads <- list()
+  lav_loads <- list()
   for(i in 1:num){
-    loads[[i]] <- paste(values[[i]], "*", varnames[[i]], sep = "")
+    lav_loads[[i]] <- paste(values[[i]], "*", varnames[[i]], sep = "")
   }
 
-  loads <- paste(loads, collapse = " + ")
+  lav_loads <- paste(lav_loads, collapse = " + ")
 
   #generate lvName
   lvname <- generateLVNames(lv, person)
 
-  loadScript <- paste(lvname, " =~ ", loads, sep = "")
+  loadScript <- paste(lvname, " =~ ", lav_loads, sep = "")
 
   resVariances <- list()
   for(i in 1:num){
@@ -87,8 +86,13 @@ generatePopLoadsErrors <- function(var = "X", partner = "A", type = NULL, num = 
   }
   resVariances <- paste(resVariances, collapse ="\n")
 
+  varnames <- as.character(varnames)
+
   loadErrorList <- list(loadings = loadScript,
-                        errors = resVariances)
+                        errors = resVariances,
+                        varnames = varnames,
+                        loadValues = values,
+                        errorValues = errors)
   return(loadErrorList)
 }
 
@@ -206,8 +210,13 @@ generatePopCFMLoadsErrors <- function(var = "X", type = NULL){
   }
   resLatVariances <- paste(resLatVariances, collapse ="\n")
 
+  varnames <- as.character(lvnames)
+
   loadErrorList <- list(loadings = loadScript,
-                        errors = resLatVariances)
+                        errors = resLatVariances,
+                        varnames = varnames,
+                        loadValues = values,
+                        errorValues = errors)
   return(loadErrorList)
 }
 
@@ -250,7 +259,14 @@ generatePopResidCorrs <- function(var = "X", type = NULL, num = NULL){
 
   rescors <- paste(rescors, collapse ="\n")
 
-  return(rescors)
+  varnames_A <- as.character(varnames_A)
+  varnames_B <- as.character(varnames_B)
+
+  rescorsList <- list(rescors = rescors,
+                      varnames_A = varnames_A,
+                      residualValues = values,
+                      varnames_B = varnames_B)
+  return(rescorsList)
 }
 
 #' @rdname generateParams
@@ -272,11 +288,20 @@ generateICCs <- function(var = "X", type = NULL){
   values <- round(values, 2)
 
   if(var == "X"){
-    icc <- paste("X_A ~~ ", values, "*X_B", sep = "")
+    var1 <- "X_A"
+    var2 <- "X_B"
+    icc <- paste(var1, " ~~ ", values, "*", var2, sep = "")
   }else if(var == "Y"){
-    icc <- paste("Y_A ~~ ", values, "*Y_B", sep = "")
+    var1 <- "Y_A"
+    var2 <- "Y_B"
+    icc <- paste(var1, " ~~ ", values, "*", var2, sep = "")
   }
-  return(icc)
+
+  iccList <- list(icc = icc,
+                  var1 = var1,
+                  var2 = var2,
+                  iccValue = values)
+  return(iccList)
 }
 
 #' @rdname generateParams
@@ -298,11 +323,20 @@ generateIPCs <- function(var = "A", type = NULL){
   values <- round(values, 2)
 
   if(var == "A"){
-    ipc <- paste("X_A ~~ ", values, "*Y_A", sep = "")
+    var1 <- "X_A"
+    var2 <- "Y_A"
+    ipc <- paste(var1, " ~~ ", values, "*", var2, sep = "")
   }else if(var == "B"){
-    ipc <- paste("X_B ~~ ", values, "*Y_B", sep = "")
+    var1 <- "X_B"
+    var2 <- "Y_B"
+    ipc <- paste(var1, " ~~ ", values, "*", var2, sep = "")
   }
-  return(ipc)
+
+  ipcList <- list(ipc = ipc,
+                  var1 = var1,
+                  var2 = var2,
+                  iccValue = values)
+  return(ipcList)
 }
 
 #' @rdname generateParams
@@ -329,9 +363,25 @@ generateActors <- function(partner = "A", type = NULL){
 
   values <- round(values, 2)
 
-  actorEffect <- paste("Y_", partner, " ~ ", values, "*X_", partner, sep = "")
+  if(partner == "A"){
+    outvar <- "Y_A"
+    predvar <- "X_A"
 
-  return(actorEffect)
+    actorEffect <- paste(outvar, " ~ ", values, "*", predvar, sep = "")
+
+  }else if(partner == "B"){
+    outvar <- "Y_B"
+    predvar <- "X_B"
+
+    actorEffect <- paste(outvar, " ~ ", values, "*", predvar, sep = "")
+  }
+
+  actorList <- list(actorEffect = actorEffect,
+                    predvar = predvar,
+                    outvar = outvar,
+                    slopeValue = values)
+
+  return(actorList)
 }
 
 #' @rdname generateParams
@@ -352,12 +402,24 @@ generatePartners <- function(partner = "A", type = NULL){
   values <- round(values, 2)
 
   if(partner == "A"){
-    partnerEffect <- paste("Y_A ~ ", values, "*X_B", sep = "")
+    outvar <- "Y_A"
+    predvar <- "X_B"
+
+    partnerEffect <- paste(outvar, " ~ ", values, "*", predvar, sep = "")
+
   }else if(partner == "B"){
-    partnerEffect <- paste("Y_B ~ ", values, "*X_A", sep = "")
+    outvar <- "Y_B"
+    predvar <- "X_A"
+
+    partnerEffect <- paste(outvar, " ~ ", values, "*", predvar, sep = "")
   }
 
-  return(partnerEffect)
+  partnerList <- list(partnerEffect = partnerEffect,
+                    predvar = predvar,
+                    outvar = outvar,
+                    slopeValue = values)
+
+  return(partnerList)
 }
 
 #' @rdname generateParams

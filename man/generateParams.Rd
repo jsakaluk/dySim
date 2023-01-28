@@ -57,7 +57,7 @@ and any combination therein (e.g., "weak_strong", "very strong_very strong") (fo
 \item{value}{numeric value for a given parameter}
 }
 \value{
-character vector (or list of character vectors) of lavaan script elements
+vector (or list of  vectors) of lavaan script elements and/or parameter values
 }
 \description{
 Helper functions for scripters to generate parameter values of particular kinds of
