@@ -44,7 +44,8 @@ runDySim <- function(seed = NULL,
 
   set.seed(seed)
   counter <- nSims
-  nSims <- 1-nSims#will run one iteration out of loop
+  nSims <- nSims#will run one iteration out of loop
+  nSimsLess1 <- nSims-1
 
   if(popMod == "L-APIM"){
     popModScript <- scriptPopModAPIM(popModList = popModList)
@@ -78,19 +79,22 @@ runDySim <- function(seed = NULL,
         dplyr::arrange(dplyr::desc(.data$op), .data$label)
     }
 
-    #nSims determines number of loops
-    for(i in cli::cli_progress_along(1:nSims, name = paste("Simulating", counter, "samples of", sampSize, "dyads."))){
-      samp <- simsem::generate(popModScript, n = sampSize)
-      sample.out <- lavaan::cfa(sample.script, data = samp, std.lv = TRUE)
-      sim.out <- lavaan::parameterestimates(sample.out, standardized = TRUE) %>%
-        dplyr::filter(.data$op == "~"|.data$op == ":=") %>%
-        dplyr::mutate(pop_model = popMod,
-                      samp_model = "L-APIM",
-                      samp_n = sampSize) %>%
-        dplyr::relocate(.data$pop_model, .data$samp_model, .data$samp_n) %>%
-        dplyr::arrange(dplyr::desc(.data$op), .data$label)
-      sim.dat <- dplyr::bind_rows(sim.dat, sim.out)
+    if(nSims > 1){
+      for(i in cli::cli_progress_along(1:nSimsLess1, name = paste("Simulating", counter, "samples of", sampSize, "dyads."))){
+        samp <- simsem::generate(popModScript, n = sampSize)
+        sample.out <- lavaan::cfa(sample.script, data = samp, std.lv = TRUE)
+        sim.out <- lavaan::parameterestimates(sample.out, standardized = TRUE) %>%
+          dplyr::filter(.data$op == "~"|.data$op == ":=") %>%
+          dplyr::mutate(pop_model = popMod,
+                        samp_model = "L-APIM",
+                        samp_n = sampSize) %>%
+          dplyr::relocate(.data$pop_model, .data$samp_model, .data$samp_n) %>%
+          dplyr::arrange(dplyr::desc(.data$op), .data$label)
+        sim.dat <- dplyr::bind_rows(sim.dat, sim.out)
+      }
     }
+    #nSims determines number of loops
+
   }
   else if(sampMod == "APIM" & sampModType == "observed"){
     samp <- samp %>%
@@ -119,28 +123,32 @@ runDySim <- function(seed = NULL,
         dplyr::relocate(.data$pop_model, .data$samp_model, .data$samp_n) %>%
         dplyr::arrange(dplyr::desc(.data$op), .data$label)
     }
-    #nSims determines number of loops
-    for(i in cli::cli_progress_along(1:nSims, name = paste("Simulating", counter, "samples of", sampSize, "dyads."))){
-      samp <- simsem::generate(popModScript, n = sampSize)
-      samp <- samp %>%
-        #dplyr::rowwise() %>%
-        dplyr::mutate(X_A = rowMeans(dplyr::across(dplyr::starts_with("X_A"))),
-                      X_B = rowMeans(dplyr::across(dplyr::starts_with("X_B"))),
-                      Y_A = rowMeans(dplyr::across(dplyr::starts_with("Y_A"))),
-                      Y_B = rowMeans(dplyr::across(dplyr::starts_with("Y_B"))))
 
-      sample.out <- lavaan::cfa(sample.script, data = samp)
+    if(nSims > 1){
+      #nSims determines number of loops
+      for(i in cli::cli_progress_along(1:nSimsLess1, name = paste("Simulating", counter, "samples of", sampSize, "dyads."))){
+        samp <- simsem::generate(popModScript, n = sampSize)
+        samp <- samp %>%
+          #dplyr::rowwise() %>%
+          dplyr::mutate(X_A = rowMeans(dplyr::across(dplyr::starts_with("X_A"))),
+                        X_B = rowMeans(dplyr::across(dplyr::starts_with("X_B"))),
+                        Y_A = rowMeans(dplyr::across(dplyr::starts_with("Y_A"))),
+                        Y_B = rowMeans(dplyr::across(dplyr::starts_with("Y_B"))))
 
-      sim.out <- lavaan::parameterestimates(sample.out, standardized = TRUE) %>%
-        dplyr::filter(.data$op == "~"|.data$op == ":=") %>%
-        dplyr::mutate(pop_model = popMod,
-                      samp_model = "O-APIM",
-                      samp_n = sampSize) %>%
-        dplyr::relocate(.data$pop_model, .data$samp_model, .data$samp_n) %>%
-        dplyr::arrange(dplyr::desc(.data$op), .data$label)
+        sample.out <- lavaan::cfa(sample.script, data = samp)
 
-       sim.dat <- dplyr::bind_rows(sim.dat, sim.out)
+        sim.out <- lavaan::parameterestimates(sample.out, standardized = TRUE) %>%
+          dplyr::filter(.data$op == "~"|.data$op == ":=") %>%
+          dplyr::mutate(pop_model = popMod,
+                        samp_model = "O-APIM",
+                        samp_n = sampSize) %>%
+          dplyr::relocate(.data$pop_model, .data$samp_model, .data$samp_n) %>%
+          dplyr::arrange(dplyr::desc(.data$op), .data$label)
+
+        sim.dat <- dplyr::bind_rows(sim.dat, sim.out)
+      }
     }
+
   }
   #output determines what to scrape from each iteration
   return(sim.dat)
