@@ -1,3 +1,5 @@
+
+##### scriptPopModAPIM ####
 test_that("scriptPopModAPIM produces correct output", {
 
   popModList.apim <- list(nItemsX = 5,
@@ -9,9 +11,25 @@ test_that("scriptPopModAPIM produces correct output", {
                           actorA = "moderate", actorB = "very strong",
                           partnerA = "weak", partnerB = "weak")
   set.seed(123)
-  expect_equal(scriptPopModAPIM(popModList = popModList.apim),
+  expect_equal(scriptPopModAPIM(popModList = popModList.apim, paramType = "structural")$popModScript,
                "#Measurement Model\n\n## Loadings\nX_A =~ 0.55*X_A1 + 0.65*X_A2 + 0.58*X_A3 + 0.67*X_A4 + 0.68*X_A5\nX_B =~ 0.51*X_B1 + 0.6*X_B2 + 0.67*X_B3 + 0.6*X_B4 + 0.59*X_B5\nY_A =~ 0.48*Y_A1 + 0.39*Y_A2 + 0.43*Y_A3 + 0.41*Y_A4 + 0.32*Y_A5\nY_B =~ 0.92*Y_B1 + 0.47*Y_B2 + 0.33*Y_B3 + 0.53*Y_B4 + 0.96*Y_B5\n\n## Uniquenesses\nX_A1 ~~ 0.6975*X_A1\nX_A2 ~~ 0.5775*X_A2\nX_A3 ~~ 0.6636*X_A3\nX_A4 ~~ 0.5511*X_A4\nX_A5 ~~ 0.5376*X_A5\nX_B1 ~~ 0.7399*X_B1\nX_B2 ~~ 0.64*X_B2\nX_B3 ~~ 0.5511*X_B3\nX_B4 ~~ 0.64*X_B4\nX_B5 ~~ 0.6519*X_B5\nY_A1 ~~ 0.7696*Y_A1\nY_A2 ~~ 0.8479*Y_A2\nY_A3 ~~ 0.8151*Y_A3\nY_A4 ~~ 0.8319*Y_A4\nY_A5 ~~ 0.8976*Y_A5\nY_B1 ~~ 0.1536*Y_B1\nY_B2 ~~ 0.7791*Y_B2\nY_B3 ~~ 0.8911*Y_B3\nY_B4 ~~ 0.7191*Y_B4\nY_B5 ~~ 0.0784*Y_B5\n\n## Residual Correlations\nX_A1 ~~ 0.19*X_B1\nX_A2 ~~ 0.17*X_B2\nX_A3 ~~ 0.17*X_B3\nX_A4 ~~ 0.2*X_B4\nX_A5 ~~ 0.17*X_B5\nY_A1 ~~ 0.29*Y_B1\nY_A2 ~~ 0.23*Y_B2\nY_A3 ~~ 0.25*Y_B3\nY_A4 ~~ 0.13*Y_B4\nY_A5 ~~ 0.07*Y_B5\n\n# Structural Model\n                        \n## Latent (Co)Variances\nX_A ~~ 1*X_A\nX_B ~~ 1*X_B\nY_A ~~ 1*Y_A\nY_B ~~ 1*Y_B\nX_A ~~ 0.1*X_B\nY_A ~~ 0.29*Y_B\n\n## Actor and Partner Effects\nY_A ~ 0.17*X_A\nY_B ~ 0.39*X_B\nY_A ~ 0.01*X_B\nY_B ~ 0.05*X_A")
+  set.seed(123)
+  expect_equal(scriptPopModAPIM(popModList = popModList.apim, paramType = "structural")$popModParams,
+               structure(list(pop_model = c("L_APIM", "L_APIM", "L_APIM", "L_APIM",
+                                            "L_APIM", "L_APIM"), samp_model = c(NA, NA, NA, NA, NA, NA),
+                              samp_n = c(NA, NA, NA, NA, NA, NA), lhs = c("YA", "YB", "YA",
+                                                                          "YB", "k1", "k2"), op = c("~", "~", "~", "~", ":=", ":="),
+                              rhs = c("XA", "XB", "XB", "XA", "p1/a1", "p2/a2"), label = c("a1",
+                                                                                           "a2", "p1", "p2", "k1", "k2"), est = c(0.17, 0.39, 0.01,
+                                                                                                                                  0.05, 0.0588235294117647, 0.128205128205128), se = c(NA,
+                                                                                                                                                                                       NA, NA, NA, NA, NA), z = c(NA, NA, NA, NA, NA, NA), pvalue = c(NA,
+                                                                                                                                                                                                                                                      NA, NA, NA, NA, NA), ci.lower = c(NA, NA, NA, NA, NA, NA),
+                              ci.upper = c(NA, NA, NA, NA, NA, NA), std.lv = c(NA, NA,
+                                                                               NA, NA, NA, NA), std.all = c(NA, NA, NA, NA, NA, NA), std.nox = c(NA,
+                                                                                                                                                 NA, NA, NA, NA, NA)), row.names = c(NA, -6L), class = "data.frame"))
 })
+
+##### scriptPopModCFM ####
 
 test_that("scriptPopModCFM produces correct output", {
 

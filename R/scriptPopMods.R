@@ -5,6 +5,7 @@
 #' to write population model script using lavaan notation
 #'
 #' @param popModList list with necessary parameter options for a given popMod
+#' @param ... arguments to pass onto helper functions (e.g., saveParamDf)
 #'
 #' @return a lavaan script with parameter values for a latent APIM
 #' @family helpers
@@ -20,9 +21,9 @@
 #' actorA = "moderate", actorB = "very strong",
 #' partnerA = "weak", partnerB = "weak")
 #'
-#' scriptPopModAPIM(popModList = popModList.apim)
+#' scriptPopModAPIM(popModList = popModList.apim, paramType = "structural")
 
-scriptPopModAPIM <- function(popModList){
+scriptPopModAPIM <- function(popModList, ...){
 
   X_A_loads <- generatePopLoadsErrors(var = "X", partner = "A", type = popModList$loadValuesX_A, num = popModList$nItemsX)
   X_B_loads <- generatePopLoadsErrors(var = "X", partner = "B", type = popModList$loadValuesX_B, num = popModList$nItemsX)
@@ -47,6 +48,15 @@ scriptPopModAPIM <- function(popModList){
   Partner_A <- generatePartners(partner = "A", type = popModList$partnerA)
   Partner_B <- generatePartners(partner = "B", type = popModList$partnerB)
 
+  paramList <- list(X_A_loads = X_A_loads, X_B_loads = X_B_loads, Y_A_loads = Y_A_loads, Y_B_loads = Y_B_loads,
+                    X_rescorrs = X_rescorrs, Y_rescorrs = Y_rescorrs,
+                    XA_LatentVariance = XA_LatentVariance, XB_LatentVariance = XB_LatentVariance, YA_LatentVariance = YA_LatentVariance, YB_LatentVariance = YB_LatentVariance,
+                    X_ICC = X_ICC, Y_ICC = Y_ICC,
+                    Actor_A = Actor_A, Actor_B = Actor_B, Partner_A = Partner_A, Partner_B = Partner_B)
+
+  popModParams <- saveParamLAPIM(paramList, ...)
+
+
   popModScript <- sprintf("#Measurement Model\n\n## Loadings\n%s\n%s\n%s\n%s\n\n## Uniquenesses\n%s\n%s\n%s\n%s\n\n## Residual Correlations\n%s\n%s\n\n# Structural Model
                         \n## Latent (Co)Variances\n%s\n%s\n%s\n%s\n%s\n%s\n\n## Actor and Partner Effects\n%s\n%s\n%s\n%s",
                         X_A_loads$loadings, X_B_loads$loadings, Y_A_loads$loadings, Y_B_loads$loadings,
@@ -54,7 +64,11 @@ scriptPopModAPIM <- function(popModList){
                         X_rescorrs$rescors, Y_rescorrs$rescors,
                         XA_LatentVariance, XB_LatentVariance, YA_LatentVariance, YB_LatentVariance, X_ICC$icc, Y_ICC$icc,
                         Actor_A$actorEffect, Actor_B$actorEffect, Partner_A$partnerEffect, Partner_B$partnerEffect)
-  return(popModScript)
+
+  popModList <- list(popModScript = popModScript,
+                     popModParams = popModParams)
+
+  return(popModList)
   #cat(popModScript, "\n")
 }
 

@@ -18,7 +18,7 @@ runDySim(
 \arguments{
 \item{seed}{numeric input for random seed to use}
 
-\item{popMod}{character of dyadic model to use as population data generating mechanism. Currently supports "L-APIM"}
+\item{popMod}{character of dyadic model to use as population data generating mechanism. Currently supports "L-APIM".}
 
 \item{popModList}{popModList with necessary parameter options for a given popMod}
 

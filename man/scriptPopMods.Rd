@@ -7,12 +7,14 @@
 \title{Helper functions for taking output from generateParams helpers
 to write population model script using lavaan notation}
 \usage{
-scriptPopModAPIM(popModList)
+scriptPopModAPIM(popModList, ...)
 
 scriptPopModCFM(popModList)
 }
 \arguments{
 \item{popModList}{list with necessary parameter options for a given popMod}
+
+\item{...}{arguments to pass onto helper functions (e.g., saveParamDf)}
 }
 \value{
 a lavaan script with parameter values for a latent APIM
@@ -31,10 +33,11 @@ residCorrValuesY = "mixed", iccY = "strong",
 actorA = "moderate", actorB = "very strong",
 partnerA = "weak", partnerB = "weak")
 
-scriptPopModAPIM(popModList = popModList.apim)
+scriptPopModAPIM(popModList = popModList.apim, paramType = "structural")
 }
 \seealso{
 Other helpers: 
-\code{\link{generateParams}}
+\code{\link{generateParams}},
+\code{\link{saveParamDf}}
 }
 \concept{helpers}

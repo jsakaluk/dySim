@@ -1,7 +1,7 @@
 #' Title
 #'
 #' @param seed numeric input for random seed to use
-#' @param popMod character of dyadic model to use as population data generating mechanism. Currently supports "L-APIM"
+#' @param popMod character of dyadic model to use as population data generating mechanism. Currently supports "L-APIM".
 #' @param popModList popModList with necessary parameter options for a given popMod
 #' @param sampSize numeric input for sample size of each randomly drawn sample
 #' @param sampMod character of dyadic model to use as analytic model within each randomly drawn sample. Currently supports "APIM"
@@ -48,7 +48,8 @@ runDySim <- function(seed = NULL,
   nSimsLess1 <- nSims-1
 
   if(popMod == "L-APIM"){
-    popModScript <- scriptPopModAPIM(popModList = popModList)
+    popModData <- scriptPopModAPIM(popModList = popModList, paramType = "structural")
+    popModScript <- popModData$popModScript
   }
 
   #sample size determines size of sample for generate
@@ -150,6 +151,8 @@ runDySim <- function(seed = NULL,
     }
 
   }
+  sim.out <- list(sim.dat = sim.dat,
+                  pop.params = popModData$popModParams)
   #output determines what to scrape from each iteration
-  return(sim.dat)
+  return(sim.out)
 }
