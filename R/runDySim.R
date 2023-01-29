@@ -73,11 +73,12 @@ runDySim <- function(seed = NULL,
       #probably should make a function for cleaning up/labeling output
       sim.dat <- lavaan::parameterestimates(sample.out, standardized = TRUE) %>%
         dplyr::filter(.data$op == "~"|.data$op == ":=") %>%
-        dplyr::mutate(pop_model = popMod,
+        dplyr::mutate(sim_num = 1,
+                      pop_model = popMod,
                       samp_model = "L-APIM",
                       samp_n = sampSize) %>%
-        dplyr::relocate(.data$pop_model, .data$samp_model, .data$samp_n) %>%
-        dplyr::arrange(dplyr::desc(.data$op), .data$label)
+        dplyr::relocate(.data$sim_num, .data$pop_model, .data$samp_model, .data$samp_n) %>%
+        dplyr::arrange(dplyr::desc(.data$sim_num), dplyr::desc(.data$op), .data$label)
     }
 
     if(nSims > 1){
@@ -86,11 +87,12 @@ runDySim <- function(seed = NULL,
         sample.out <- lavaan::cfa(sample.script, data = samp, std.lv = TRUE)
         sim.out <- lavaan::parameterestimates(sample.out, standardized = TRUE) %>%
           dplyr::filter(.data$op == "~"|.data$op == ":=") %>%
-          dplyr::mutate(pop_model = popMod,
+          dplyr::mutate(sim_num = (i+1),
+                        pop_model = popMod,
                         samp_model = "L-APIM",
                         samp_n = sampSize) %>%
-          dplyr::relocate(.data$pop_model, .data$samp_model, .data$samp_n) %>%
-          dplyr::arrange(dplyr::desc(.data$op), .data$label)
+          dplyr::relocate(.data$sim_num, .data$pop_model, .data$samp_model, .data$samp_n) %>%
+          dplyr::arrange(dplyr::desc(.data$sim_num), dplyr::desc(.data$op), .data$label)
         sim.dat <- dplyr::bind_rows(sim.dat, sim.out)
       }
     }

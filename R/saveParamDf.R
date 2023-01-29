@@ -32,12 +32,13 @@ saveParamLAPIM <- function(paramList, paramType){
 
     sim.param <- data.frame(lhs, op, rhs, label, est, se, z, pvalue, ci.lower, ci.upper, std.lv, std.all, std.nox)
 
+    sim.param$sim_num <- 0
     sim.param$pop_model <- "L_APIM"
     sim.param$samp_model <- NA
     sim.param$samp_n <- NA
 
     sim.param <- sim.param %>%
-      dplyr::relocate(.data$pop_model, .data$samp_model, .data$samp_n)
+      dplyr::relocate(.data$sim_num, .data$pop_model, .data$samp_model, .data$samp_n)
   }else if(paramType == "both"){
 
   }else{
