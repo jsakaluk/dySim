@@ -1,4 +1,4 @@
-test_that("runDySim produces correct output for P: L-APIM and S: L-APIM", {
+test_that("runDySim produces correct paramTable output for P: L-APIM and S: L-APIM", {
   popModList.apim <- list(nItemsX = 5,
                           loadValuesX_A = "moderate", loadValuesX_B = "moderate",
                           residCorrValuesX = "moderate", iccX = "weak",
@@ -64,7 +64,7 @@ test_that("runDySim produces correct output for P: L-APIM and S: L-APIM", {
   )
 })
 
-test_that("runDySim produces correct output for P: L-APIM and S: L-APIM", {
+test_that("runDySim produces correct paramTable output for P: L-APIM and S: O-APIM", {
   popModList.apim <- list(nItemsX = 5,
                           loadValuesX_A = "moderate", loadValuesX_B = "moderate",
                           residCorrValuesX = "moderate", iccX = "weak",
@@ -124,4 +124,61 @@ test_that("runDySim produces correct output for P: L-APIM and S: L-APIM", {
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         0.898048417292179)), row.names = c(NA, -12L), class = c("lavaan.data.frame",
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 "data.frame"))
   )
+})
+
+test_that("runDySim produces correct modelFit output for P: L-APIM and S: L-APIM", {
+  popModList.apim <- list(nItemsX = 5,
+                          loadValuesX_A = "moderate", loadValuesX_B = "moderate",
+                          residCorrValuesX = "moderate", iccX = "weak",
+                          nItemsY = 5,
+                          loadValuesY_A = "weak", loadValuesY_B = "mixed",
+                          residCorrValuesY = "mixed", iccY = "strong",
+                          actorA = "moderate", actorB = "very strong",
+                          partnerA = "weak", partnerB = "weak")
+
+  expect_equal(runDySim(seed = 125,
+                        popMod = "L-APIM",
+                        popModList = popModList.apim,
+                        sampSize = 100,
+                        sampMod = "L-APIM",
+                        nSims = 3,
+                        output = "modelFit")$sim.dat,
+               structure(list(sim_num = c(1, 1, 1), pop_mod = c("L-APIM", "L-APIM",
+                                                                "L-APIM"), samp_mod = c("L-APIM", "L-APIM", "L-APIM"), samp_n = c(100,
+                                                                                                                                  100, 100), cfi = c(0.854361627334296, 0.838330831498373, 0.738757756499453
+                                                                                                                                  ), tli = c(0.849612549964762, 0.833059010786364, 0.730238987689652
+                                                                                                                                  ), aic = c(5297.01787879608, 5242.59277037589, 5357.6872871806
+                                                                                                                                  ), bic = c(5416.85570735153, 5362.43059893135, 5477.52511573605
+                                                                                                                                  ), rmsea = c(0.0689311439592113, 0.068101136278879, 0.0881757244718191
+                                                                                                                                  ), srmr = c(0.0872742711295682, 0.101033307529217, 0.103201107596133
+                                                                                                                                  )), row.names = c("fitMeasures...1", "fitMeasures...2", "fitMeasures...3"
+                                                                                                                                  ), class = "data.frame")
+  )
+})
+
+test_that("runDySim produces correct modelFit output for P: L-APIM and S: O-APIM", {
+  popModList.apim <- list(nItemsX = 5,
+                          loadValuesX_A = "moderate", loadValuesX_B = "moderate",
+                          residCorrValuesX = "moderate", iccX = "weak",
+                          nItemsY = 5,
+                          loadValuesY_A = "weak", loadValuesY_B = "mixed",
+                          residCorrValuesY = "mixed", iccY = "strong",
+                          actorA = "moderate", actorB = "very strong",
+                          partnerA = "weak", partnerB = "weak")
+
+  expect_equal(runDySim(seed = 125,
+                        popMod = "L-APIM",
+                        popModList = popModList.apim,
+                        sampSize = 100,
+                        sampMod = "O-APIM",
+                        nSims = 3,
+                        output = "modelFit")$sim.dat,
+               structure(list(sim_num = c(1, 1, 1), pop_mod = c("L-APIM", "L-APIM",
+                                                                "L-APIM"), samp_mod = c("O-APIM", "O-APIM", "O-APIM"), samp_n = c(100,
+                                                                                                                                  100, 100), cfi = c(1, 1, 1), tli = c(1, 1, 1), aic = c(857.80648099422,
+                                                                                                                                                                                         858.064362985424, 874.707765988494), bic = c(883.8581828541,
+                                                                                                                                                                                                                                      884.116064845305, 900.759467848375), rmsea = c(0, 0, 0), srmr = c(4.88059531700345e-09,
+                                                                                                                                                                                                                                                                                                        2.71216224481394e-09, 7.07544218088821e-09)), row.names = c("fitMeasures...1",
+                                                                                                                                                                                                                                                                                                                                                                    "fitMeasures...2", "fitMeasures...3"), class = "data.frame")
+               )
 })

@@ -26,3 +26,27 @@ getParams <- function(fit, first = NULL, sampCount = NULL){
 
   return(params)
 }
+
+
+#Function contributions from Omar Camanto (omarjcamanto)
+getFit <- function(fit, first = NULL, sampCount = NULL){
+
+  if(isTRUE(first)){
+
+    fitMeasures <- lavaan::fitmeasures(fit)
+    fitMeasuresTransp <- data.frame(t(data.frame(fitMeasures))) %>%
+      dplyr::select(.data$cfi, .data$tli, .data$aic, .data$bic, .data$rmsea, .data$srmr) %>%
+      dplyr::mutate(sim_num = 1)
+  }else if(!isTRUE(first)){
+
+    sampCount <- sampCount
+
+    fitMeasures <- lavaan::fitmeasures(fit)
+
+    fitMeasuresTransp <- data.frame(t(data.frame(fitMeasures))) %>%
+      dplyr::select(.data$cfi, .data$tli, .data$aic, .data$bic, .data$rmsea, .data$srmr) %>%
+      dplyr::mutate(sim_num = sampCount)
+  }
+
+  return(fitMeasuresTransp)
+}

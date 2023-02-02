@@ -6,7 +6,7 @@
 #' @param sampSize numeric input for sample size of each randomly drawn sample
 #' @param sampMod character of dyadic model to use as analytic model within each randomly drawn sample, including "L-APIM", and "O-APIM"
 #' @param nSims numeric input for number of randomly drawn samples to draw from popMod
-#' @param output character of type of output to extract from each analyzed sampMod. Currently supports "paramTable"
+#' @param output character of type of output to extract from each analyzed sampMod. Currently supports "paramTable" and "modelFit"
 #'
 #' @return a tibble of chosen output from nSims random samples
 #' @export
@@ -69,6 +69,8 @@ runDySim <- function(seed = NULL,
 
     if(output == "paramTable"){
       sim.dat <- getParams(fit = sample.out, sampCount = simCount, first = TRUE)
+    }else if(output == "modelFit"){
+      sim.dat <- getFit(fit = sample.out, sampCount = simCount, first = TRUE)
     }
 
 
@@ -82,18 +84,29 @@ runDySim <- function(seed = NULL,
 
         if(output == "paramTable"){
           sim.out <- getParams(fit = sample.out, sampCount = simCount, first = FALSE)
+        }else if(output == "modelFit"){
+          sim.out <- getFit(fit = sample.out, sampCount = simCount, first = TRUE)
         }
 
         sim.dat <- dplyr::bind_rows(sim.dat, sim.out)
       }
     }
-    sim.dat <- sim.dat %>%
-      dplyr::mutate(pop_mod = popMod,
-                    samp_mod = sampMod,
-                    samp_n = sampSize) %>%
-      dplyr::relocate(.data$sim_num, .data$pop_mod, .data$samp_mod, .data$samp_n) %>%
-      dplyr::arrange(.data$sim_num, dplyr::desc(.data$op), .data$label)
-    #nSims determines number of loops
+    if(output == "paramTable"){
+      sim.dat <- sim.dat %>%
+        dplyr::mutate(pop_mod = popMod,
+                      samp_mod = sampMod,
+                      samp_n = sampSize) %>%
+        dplyr::relocate(.data$sim_num, .data$pop_mod, .data$samp_mod, .data$samp_n) %>%
+        dplyr::arrange(.data$sim_num, dplyr::desc(.data$op), .data$label)
+    }else if(output == "modelFit"){
+      sim.dat <- sim.dat %>%
+        dplyr::mutate(pop_mod = popMod,
+                      samp_mod = sampMod,
+                      samp_n = sampSize) %>%
+        dplyr::relocate(.data$sim_num, .data$pop_mod, .data$samp_mod, .data$samp_n) %>%
+        dplyr::arrange(.data$sim_num)
+    }
+
 
   }
   else if(sampMod == "O-APIM"){
@@ -115,8 +128,9 @@ runDySim <- function(seed = NULL,
 
     #get output from first sample
     if(output == "paramTable"){
-      #probably should make a function for cleaning up/labeling output
-      sim.dat <- getParams(fit = sample.out, sampCount = simCount, first = TRUE)
+      sim.dat <- getParams(fit = sample.out, sampCount = simCount, first = FALSE)
+    }else if(output == "modelFit"){
+      sim.dat <- getFit(fit = sample.out, sampCount = simCount, first = TRUE)
     }
 
 
@@ -137,17 +151,28 @@ runDySim <- function(seed = NULL,
 
         if(output == "paramTable"){
           sim.out <- getParams(fit = sample.out, sampCount = simCount, first = FALSE)
+        }else if(output == "modelFit"){
+          sim.out <- getFit(fit = sample.out, sampCount = simCount, first = TRUE)
         }
 
         sim.dat <- dplyr::bind_rows(sim.dat, sim.out)
       }
     }
-    sim.dat <- sim.dat %>%
-      dplyr::mutate(pop_mod = popMod,
-                    samp_mod = sampMod,
-                    samp_n = sampSize) %>%
-      dplyr::relocate(.data$sim_num, .data$pop_mod, .data$samp_mod, .data$samp_n) %>%
-      dplyr::arrange(.data$sim_num, dplyr::desc(.data$op), .data$label)
+    if(output == "paramTable"){
+      sim.dat <- sim.dat %>%
+        dplyr::mutate(pop_mod = popMod,
+                      samp_mod = sampMod,
+                      samp_n = sampSize) %>%
+        dplyr::relocate(.data$sim_num, .data$pop_mod, .data$samp_mod, .data$samp_n) %>%
+        dplyr::arrange(.data$sim_num, dplyr::desc(.data$op), .data$label)
+    }else if(output == "modelFit"){
+      sim.dat <- sim.dat %>%
+        dplyr::mutate(pop_mod = popMod,
+                      samp_mod = sampMod,
+                      samp_n = sampSize) %>%
+        dplyr::relocate(.data$sim_num, .data$pop_mod, .data$samp_mod, .data$samp_n) %>%
+        dplyr::arrange(.data$sim_num)
+    }
 
   }
   sim.out <- list(sim.dat = sim.dat,

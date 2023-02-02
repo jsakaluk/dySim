@@ -27,7 +27,7 @@ runDySim(
 
 \item{nSims}{numeric input for number of randomly drawn samples to draw from popMod}
 
-\item{output}{character of type of output to extract from each analyzed sampMod. Currently supports "paramTable"}
+\item{output}{character of type of output to extract from each analyzed sampMod. Currently supports "paramTable" and "modelFit"}
 }
 \value{
 a tibble of chosen output from nSims random samples
