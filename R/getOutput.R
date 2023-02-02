@@ -28,7 +28,7 @@ getParams <- function(fit, first = NULL, sampCount = NULL){
 }
 
 
-#Function contributions from Omar Camanto (omarjcamanto)
+#Function contributions from Omar Camanto (@omarjcamanto)
 getFit <- function(fit, first = NULL, sampCount = NULL){
 
   if(isTRUE(first)){
