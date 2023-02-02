@@ -10,7 +10,6 @@ runDySim(
   popModList = NULL,
   sampSize = NULL,
   sampMod = NULL,
-  sampModType = NULL,
   nSims = NULL,
   output = "paramTable"
 )
@@ -24,9 +23,7 @@ runDySim(
 
 \item{sampSize}{numeric input for sample size of each randomly drawn sample}
 
-\item{sampMod}{character of dyadic model to use as analytic model within each randomly drawn sample. Currently supports "APIM"}
-
-\item{sampModType}{character of type of specification for chosen sampMod. "latent" or "observed"}
+\item{sampMod}{character of dyadic model to use as analytic model within each randomly drawn sample, including "L-APIM", and "O-APIM"}
 
 \item{nSims}{numeric input for number of randomly drawn samples to draw from popMod}
 
@@ -52,8 +49,7 @@ apim.sim.out <- runDySim(seed = 123,
 popMod = "L-APIM",
 popModList = popModList.apim,
 sampSize = 100,
-sampMod = "APIM",
-sampModType = "latent",
+sampMod = "L-APIM",
 nSims = 10,
 output = "paramTable")
 

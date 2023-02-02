@@ -23,6 +23,7 @@ in order to compare simulated statistics against parameter values in tables and/
 \seealso{
 Other helpers: 
 \code{\link{generateParams}},
+\code{\link{getOutput}},
 \code{\link{scriptPopMods}}
 }
 \concept{helpers}

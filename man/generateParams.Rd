@@ -65,6 +65,7 @@ parameters for dyadic SEMs using lavaan notation
 }
 \seealso{
 Other helpers: 
+\code{\link{getOutput}},
 \code{\link{saveParamDf}},
 \code{\link{scriptPopMods}}
 }

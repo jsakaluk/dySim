@@ -38,6 +38,7 @@ scriptPopModAPIM(popModList = popModList.apim, paramType = "structural")
 \seealso{
 Other helpers: 
 \code{\link{generateParams}},
+\code{\link{getOutput}},
 \code{\link{saveParamDf}}
 }
 \concept{helpers}
