@@ -100,7 +100,7 @@ getParamsMLM <- function(fit, first = NULL, sampCount = NULL){
                     z = as.numeric(.data$z),
                     pvalue = as.numeric(.data$pvalue),
                     ci.lower = as.numeric(.data$ci.lower),
-                    ci.upper = as.numeric(.data$ci.upper))
+                    ci.upper = as.numeric(.data$ci.upper)))
   }
   return(params)
 }
