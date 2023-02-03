@@ -1,6 +1,6 @@
 Package: dySim
 Title: Dyadic Data Analysis Simulation
-Version: 0.0.0.9002
+Version: 0.0.0.9003
 Authors@R: 
     person("John", "Sakaluk", , "jksakaluk@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-2515-9822"))
@@ -22,8 +22,9 @@ Imports:
     lavaan,
     lifecycle,
     magrittr,
+    nlme,
     rlang,
-    simsem,
+    simsem
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

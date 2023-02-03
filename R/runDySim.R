@@ -182,7 +182,7 @@ runDySim <- function(seed = NULL,
                     X_B = rowMeans(dplyr::across(dplyr::starts_with("X_B"))),
                     Y_A = rowMeans(dplyr::across(dplyr::starts_with("Y_A"))),
                     Y_B = rowMeans(dplyr::across(dplyr::starts_with("Y_B")))) %>%
-      dplyr::select(ID, X_A, X_B, Y_A, Y_B)
+      dplyr::select(.data$ID, .data$X_A, .data$X_B, .data$Y_A, .data$Y_B)
 
     #Thanks to Sam Joel (@samanthajoel) for the data cleaning pipeline below
     ##Switch to long format (each participant gets a row)
@@ -192,8 +192,8 @@ runDySim <- function(seed = NULL,
 
     ##Add partner variables back in
     dataAPIM <- datalong %>%
-      dplyr::arrange(ID,Partner) %>%
-      dplyr::group_by(ID) %>%
+      dplyr::arrange(.data$ID,.data$Partner) %>%
+      dplyr::group_by(.data$ID) %>%
       dplyr::mutate(X_Actor =  dplyr::case_when(Partner=="A" ~  dplyr::first(X),
                                                 TRUE ~  dplyr::last(X)),
                     X_Partner =  dplyr::case_when(Partner=="B" ~  dplyr::first(X),
@@ -213,17 +213,17 @@ runDySim <- function(seed = NULL,
                               X_Actor*Dummy_A + X_Partner*Dummy_A,
                             data = dataAPIM,
                             method = "ML",
-                            correlation = corCompSymm (form=~1|ID),
-                            weights = varIdent(form=~1|Dummy_A),
-                            na.action = na.omit)
+                            correlation = nlme::corCompSymm (form=~1|ID),
+                            weights = nlme::varIdent(form=~1|Dummy_A),
+                            na.action = stats::na.omit)
 
     apim_dis_B <- nlme::gls(Y_Actor ~ X_Actor + X_Partner + Dummy_B +
                               X_Actor*Dummy_B + X_Partner*Dummy_B,
                             data = dataAPIM,
                             method = "ML",
-                            correlation = corCompSymm (form=~1|ID),
-                            weights = varIdent(form=~1|Dummy_B),
-                            na.action = na.omit)
+                            correlation = nlme::corCompSymm (form=~1|ID),
+                            weights = nlme::varIdent(form=~1|Dummy_B),
+                            na.action = stats::na.omit)
 
     sample.out <- list(apim_dis_A = apim_dis_A,
                 apim_dis_B = apim_dis_B)
@@ -245,7 +245,7 @@ runDySim <- function(seed = NULL,
                         X_B = rowMeans(dplyr::across(dplyr::starts_with("X_B"))),
                         Y_A = rowMeans(dplyr::across(dplyr::starts_with("Y_A"))),
                         Y_B = rowMeans(dplyr::across(dplyr::starts_with("Y_B")))) %>%
-          dplyr::select(ID, X_A, X_B, Y_A, Y_B)
+          dplyr::select(.data$ID, .data$X_A, .data$X_B, .data$Y_A, .data$Y_B)
 
         #Thanks to Sam Joel (@samanthajoel) for the data cleaning pipeline below
         ##Switch to long format (each participant gets a row)
@@ -255,8 +255,8 @@ runDySim <- function(seed = NULL,
 
         ##Add partner variables back in
         dataAPIM <- datalong %>%
-          dplyr::arrange(ID,Partner) %>%
-          dplyr::group_by(ID) %>%
+          dplyr::arrange(.data$ID,.data$Partner) %>%
+          dplyr::group_by(.data$ID) %>%
           dplyr::mutate(X_Actor =  dplyr::case_when(Partner=="A" ~  dplyr::first(X),
                                                     TRUE ~  dplyr::last(X)),
                         X_Partner =  dplyr::case_when(Partner=="B" ~  dplyr::first(X),
@@ -275,17 +275,17 @@ runDySim <- function(seed = NULL,
                                   X_Actor*Dummy_A + X_Partner*Dummy_A,
                                 data = dataAPIM,
                                 method = "ML",
-                                correlation = corCompSymm (form=~1|ID),
-                                weights = varIdent(form=~1|Dummy_A),
-                                na.action = na.omit)
+                                correlation = nlme::corCompSymm (form=~1|ID),
+                                weights = nlme::varIdent(form=~1|Dummy_A),
+                                na.action = stats::na.omit)
 
         apim_dis_B <- nlme::gls(Y_Actor ~ X_Actor + X_Partner + Dummy_B +
                                   X_Actor*Dummy_B + X_Partner*Dummy_B,
                                 data = dataAPIM,
                                 method = "ML",
-                                correlation = corCompSymm (form=~1|ID),
-                                weights = varIdent(form=~1|Dummy_B),
-                                na.action = na.omit)
+                                correlation = nlme::corCompSymm (form=~1|ID),
+                                weights = nlme::varIdent(form=~1|Dummy_B),
+                                na.action = stats::na.omit)
 
         sample.out <- list(apim_dis_A = apim_dis_A,
                            apim_dis_B = apim_dis_B)

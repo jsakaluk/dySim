@@ -30,7 +30,7 @@ getParams <- function(fit, first = NULL, sampCount = NULL){
 getParamsMLM <- function(fit, first = NULL, sampCount = NULL){
 
   apim_dis_A_out <- summary(fit$apim_dis_A)
-  apim_dis_A_conf <- confint(fit$apim_dis_A)
+  apim_dis_A_conf <- stats::confint(fit$apim_dis_A)
 
   a1.est <- apim_dis_A_out$tTable[3,1]
   a1.se <- apim_dis_A_out$tTable[3,2]
@@ -47,7 +47,7 @@ getParamsMLM <- function(fit, first = NULL, sampCount = NULL){
   a2.lower <- apim_dis_A_conf[2,1]
 
   apim_dis_B_out <- summary(fit$apim_dis_B)
-  apim_dis_B_conf <- confint(fit$apim_dis_B)
+  apim_dis_B_conf <- stats::confint(fit$apim_dis_B)
 
   p1.est <- apim_dis_B_out$tTable[3,1]
   p1.se <- apim_dis_B_out$tTable[3,2]
