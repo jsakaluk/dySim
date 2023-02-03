@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">dySim</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9004</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +54,6 @@
 <span>  popModList <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sampSize <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  sampMod <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  sampModType <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  nSims <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  output <span class="op">=</span> <span class="st">"paramTable"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -79,11 +78,7 @@
 
 
 <dt>sampMod</dt>
-<dd><p>character of dyadic model to use as analytic model within each randomly drawn sample. Currently supports "APIM"</p></dd>
-
-
-<dt>sampModType</dt>
-<dd><p>character of type of specification for chosen sampMod. "latent" or "observed"</p></dd>
+<dd><p>character of dyadic model to use as analytic model within each randomly drawn sample, including "L-APIM", and "O-APIM"</p></dd>
 
 
 <dt>nSims</dt>
@@ -91,7 +86,7 @@
 
 
 <dt>output</dt>
-<dd><p>character of type of output to extract from each analyzed sampMod. Currently supports "paramTable"</p></dd>
+<dd><p>character of type of output to extract from each analyzed sampMod. Currently supports "paramTable" and "modelFit"</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -116,8 +111,7 @@
 <span class="r-in"><span>popMod <span class="op">=</span> <span class="st">"L-APIM"</span>,</span></span>
 <span class="r-in"><span>popModList <span class="op">=</span> <span class="va">popModList.apim</span>,</span></span>
 <span class="r-in"><span>sampSize <span class="op">=</span> <span class="fl">100</span>,</span></span>
-<span class="r-in"><span>sampMod <span class="op">=</span> <span class="st">"APIM"</span>,</span></span>
-<span class="r-in"><span>sampModType <span class="op">=</span> <span class="st">"latent"</span>,</span></span>
+<span class="r-in"><span>sampMod <span class="op">=</span> <span class="st">"L-APIM"</span>,</span></span>
 <span class="r-in"><span>nSims <span class="op">=</span> <span class="fl">10</span>,</span></span>
 <span class="r-in"><span>output <span class="op">=</span> <span class="st">"paramTable"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>

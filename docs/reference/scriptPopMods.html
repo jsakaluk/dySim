@@ -14,7 +14,7 @@ to write population model script using lavaan notation"><!-- mathjax --><script 
     
     <a class="navbar-brand me-2" href="../index.html">dySim</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9004</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,6 +79,7 @@ to write population model script using lavaan notation</p>
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other helpers: 
 <code><a href="generateParams.html">generateParams</a></code>,
+<code><a href="getOutput.html">getOutput</a></code>,
 <code><a href="saveParamDf.html">saveParamDf</a></code></p></div>
     </div>
 
@@ -98,20 +99,20 @@ to write population model script using lavaan notation</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "#Measurement Model\n\n## Loadings\nX_A =~ 0.55*X_A1 + 0.58*X_A2 + 0.64*X_A3 + 0.62*X_A4 + 0.59*X_A5\nX_B =~ 0.56*X_B1 + 0.66*X_B2 + 0.61*X_B3 + 0.69*X_B4 + 0.51*X_B5\nY_A =~ 0.31*Y_A1 + 0.44*Y_A2 + 0.38*Y_A3 + 0.48*Y_A4 + 0.49*Y_A5\nY_B =~ 0.62*Y_B1 + 0.52*Y_B2 + 0.69*Y_B3 + 0.52*Y_B4 + 0.87*Y_B5\n\n## Uniquenesses\nX_A1 ~~ 0.6975*X_A1\nX_A2 ~~ 0.6636*X_A2\nX_A3 ~~ 0.5904*X_A3\nX_A4 ~~ 0.6156*X_A4\nX_A5 ~~ 0.6519*X_A5\nX_B1 ~~ 0.6864*X_B1\nX_B2 ~~ 0.5644*X_B2\nX_B3 ~~ 0.6279*X_B3\nX_B4 ~~ 0.5239*X_B4\nX_B5 ~~ 0.7399*X_B5\nY_A1 ~~ 0.9039*Y_A1\nY_A2 ~~ 0.8064*Y_A2\nY_A3 ~~ 0.8556*Y_A3\nY_A4 ~~ 0.7696*Y_A4\nY_A5 ~~ 0.7599*Y_A5\nY_B1 ~~ 0.6156*Y_B1\nY_B2 ~~ 0.7296*Y_B2\nY_B3 ~~ 0.5239*Y_B3\nY_B4 ~~ 0.7296*Y_B4\nY_B5 ~~ 0.2431*Y_B5\n\n## Residual Correlations\nX_A1 ~~ 0.14*X_B1\nX_A2 ~~ 0.16*X_B2\nX_A3 ~~ 0.19*X_B3\nX_A4 ~~ 0.17*X_B4\nX_A5 ~~ 0.12*X_B5\nY_A1 ~~ 0.21*Y_B1\nY_A2 ~~ 0.1*Y_B2\nY_A3 ~~ 0.16*Y_B3\nY_A4 ~~ 0.1*Y_B4\nY_A5 ~~ 0.07*Y_B5\n\n# Structural Model\n                        \n## Latent (Co)Variances\nX_A ~~ 1*X_A\nX_B ~~ 1*X_B\nY_A ~~ 1*Y_A\nY_B ~~ 1*Y_B\nX_A ~~ 0.07*X_B\nY_A ~~ 0.26*Y_B\n\n## Actor and Partner Effects\nY_A ~ 0.12*X_A\nY_B ~ 0.35*X_B\nY_A ~ 0.09*X_B\nY_B ~ 0.07*X_A"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $popModParams</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   pop_model samp_model samp_n lhs op   rhs label  est se  z pvalue ci.lower</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1    L_APIM         NA     NA  YA  ~    XA    a1 0.12 NA NA     NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    L_APIM         NA     NA  YB  ~    XB    a2 0.35 NA NA     NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    L_APIM         NA     NA  YA  ~    XB    p1 0.09 NA NA     NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4    L_APIM         NA     NA  YB  ~    XA    p2 0.07 NA NA     NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5    L_APIM         NA     NA  k1 := p1/a1    k1 0.75 NA NA     NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6    L_APIM         NA     NA  k2 := p2/a2    k2 0.20 NA NA     NA       NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ci.upper std.lv std.all std.nox</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1       NA     NA      NA      NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2       NA     NA      NA      NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3       NA     NA      NA      NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4       NA     NA      NA      NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5       NA     NA      NA      NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6       NA     NA      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   sim_num pop_model samp_model samp_n lhs op   rhs label  est se  z pvalue</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       0    L_APIM         NA     NA  YA  ~    XA    a1 0.12 NA NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       0    L_APIM         NA     NA  YB  ~    XB    a2 0.35 NA NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       0    L_APIM         NA     NA  YA  ~    XB    p1 0.09 NA NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       0    L_APIM         NA     NA  YB  ~    XA    p2 0.07 NA NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       0    L_APIM         NA     NA  k1 := p1/a1    k1 0.75 NA NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       0    L_APIM         NA     NA  k2 := p2/a2    k2 0.20 NA NA     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ci.lower ci.upper std.lv std.all std.nox</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       NA       NA     NA      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       NA       NA     NA      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3       NA       NA     NA      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4       NA       NA     NA      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       NA       NA     NA      NA      NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6       NA       NA     NA      NA      NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>

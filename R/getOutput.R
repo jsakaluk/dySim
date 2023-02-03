@@ -16,11 +16,13 @@ getParams <- function(fit, first = NULL, sampCount = NULL){
   if(isTRUE(first)){
     params <- lavaan::parameterestimates(fit, standardized = TRUE) %>%
       dplyr::filter(.data$op == "~"|.data$op == ":=") %>%
+      dplyr::select(.data$lhs:.data$ci.upper) %>%
       dplyr::mutate(sim_num = 1)
   }else if(!isTRUE(first)){
     sampCount <- sampCount
     params <- lavaan::parameterestimates(fit, standardized = TRUE) %>%
       dplyr::filter(.data$op == "~"|.data$op == ":=") %>%
+      dplyr::select(.data$lhs:.data$ci.upper) %>%
       dplyr::mutate(sim_num = sampCount)
   }
 
@@ -82,11 +84,23 @@ getParamsMLM <- function(fit, first = NULL, sampCount = NULL){
 
   if(isTRUE(first)){
     params <- mlm.df %>%
-      dplyr::mutate(sim_num = 1)
+      dplyr::mutate(sim_num = 1,
+                    est = as.numeric(.data$est),
+                    se = as.numeric(.data$se),
+                    z = as.numeric(.data$z),
+                    pvalue = as.numeric(.data$pvalue),
+                    ci.lower = as.numeric(.data$ci.lower),
+                    ci.upper = as.numeric(.data$ci.upper))
   }else if(!isTRUE(first)){
     sampCount <- sampCount
     params <- mlm.df %>%
-      dplyr::mutate(sim_num = sampCount)
+      dplyr::mutate(sim_num = sampCount,
+                    est = as.numeric(.data$est),
+                    se = as.numeric(.data$se),
+                    z = as.numeric(.data$z),
+                    pvalue = as.numeric(.data$pvalue),
+                    ci.lower = as.numeric(.data$ci.lower),
+                    ci.upper = as.numeric(.data$ci.upper))
   }
   return(params)
 }
