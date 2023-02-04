@@ -11,6 +11,13 @@ test_that("generateLVNames() produces the correct output", {
 
 #### generatePopLoadsErrors####
 
+test_that("generatePopLoadsErrors() produces the correct output for nil", {
+  set.seed(123)
+  expect_equal(generatePopLoadsErrors(var = "X", partner = "A", type = "nil", num = 5)$loadings, "X_A =~ 0*X_A1 + 0*X_A2 + 0*X_A3 + 0*X_A4 + 0*X_A5")
+  set.seed(123)
+  expect_equal(generatePopLoadsErrors(var = "X", partner = "A", type = "nil", num = 5)$errors, "X_A1 ~~ 1*X_A1\nX_A2 ~~ 1*X_A2\nX_A3 ~~ 1*X_A3\nX_A4 ~~ 1*X_A4\nX_A5 ~~ 1*X_A5")
+})
+
 test_that("generatePopLoadsErrors() produces the correct output for weak", {
   set.seed(123)
   expect_equal(generatePopLoadsErrors(var = "X", partner = "A", type = "weak", num = 5)$loadings, "X_A =~ 0.35*X_A1 + 0.45*X_A2 + 0.38*X_A3 + 0.47*X_A4 + 0.48*X_A5")
@@ -138,6 +145,13 @@ test_that("generatePopCFMLoadsErrors() produces error with errant type", {
   expect_error(generatePopCFMLoadsErrors(var = "X", type = "yuge_yuge"))
 })
 #### generatePopResidCorrs####
+
+test_that("generatePopResidCorrs produces correct output for nil", {
+  set.seed(123)
+  expect_equal(generatePopResidCorrs(var = "X", type = "nil", num = 5)$rescors, "X_A1 ~~ 0*X_B1\nX_A2 ~~ 0*X_B2\nX_A3 ~~ 0*X_B3\nX_A4 ~~ 0*X_B4\nX_A5 ~~ 0*X_B5")
+})
+
+
 test_that("generatePopResidCorrs produces correct output for weak", {
   set.seed(123)
   expect_equal(generatePopResidCorrs(var = "X", type = "weak", num = 5)$rescors, "X_A1 ~~ 0.04*X_B1\nX_A2 ~~ 0.08*X_B2\nX_A3 ~~ 0.05*X_B3\nX_A4 ~~ 0.09*X_B4\nX_A5 ~~ 0.09*X_B5")
@@ -159,6 +173,12 @@ test_that("generatePopResidCorrs produces error for errant type", {
   expect_error(generatePopResidCorrs(var = "X", type = "yuge", num = 5))
 })
 #### generateICCs####
+
+test_that("generateICCs produces correct output for nil", {
+  set.seed(123)
+  expect_equal(generateICCs(var = "X", type = "nil")$icc, "X_A ~~ 0*X_B")
+})
+
 test_that("generateICCs produces correct output for weak", {
   set.seed(123)
   expect_equal(generateICCs(var = "X", type = "weak")$icc, "X_A ~~ 0.04*X_B")
@@ -174,6 +194,11 @@ test_that("generateICCs produces correct output for very strong", {
   expect_equal(generateICCs(var = "X", type = "very strong")$icc, "X_A ~~ 0.34*X_B")
 })
 #### generateIPCs####
+test_that("generateIPCs produces correct output for nil", {
+  set.seed(123)
+  expect_equal(generateIPCs(var = "A", type = "nil")$ipc, "X_A ~~ 0*Y_A")
+})
+
 test_that("generateIPCs produces correct output for weak", {
   set.seed(123)
   expect_equal(generateIPCs(var = "A", type = "weak")$ipc, "X_A ~~ 0.04*Y_A")
@@ -189,6 +214,12 @@ test_that("generateIPCs produces correct output", {
 })
 
 #### generateActors####
+
+test_that("generateActors produces correct output for nil", {
+  set.seed(123)
+  expect_equal(generateActors(partner = "A", type = "nil")$actorEffect, "Y_A ~ 0*X_A")
+})
+
 test_that("generateActors produces correct output for weak", {
   set.seed(123)
   expect_equal(generateActors(partner = "A", type = "weak")$actorEffect, "Y_A ~ 0.04*X_A")
@@ -199,6 +230,12 @@ test_that("generateActors produces correct output for strong", {
   expect_equal(generateActors(partner = "A", type = "strong")$actorEffect, "Y_A ~ 0.24*X_A")
 })
 #### generatePartners####
+
+test_that("generatePartners produces correct output for nil", {
+  set.seed(123)
+  expect_equal(generatePartners(partner = "A", type = "nil")$partnerEffect, "Y_A ~ 0*X_B")
+})
+
 test_that("generatePartners produces correct output for weak", {
   set.seed(123)
   expect_equal(generatePartners(partner = "A", type = "weak")$partnerEffect, "Y_A ~ 0.04*X_B")
@@ -219,6 +256,14 @@ test_that("generatePartners produces correct output for very strong", {
   expect_equal(generatePartners(partner = "A", type = "very strong")$partnerEffect, "Y_A ~ 0.34*X_B")
 })
 #### generatePopCFMDySlopeError####
+
+test_that("generatePopCFMDySlopeError produces correct output for nil", {
+  set.seed(123)
+  expect_equal(generatePopCFMDySlopeError(type = "nil")$slope, "Y_Dy ~ 0*X_Dy")
+  set.seed(123)
+  expect_equal(generatePopCFMDySlopeError(type = "nil")$residual, "Y_Dy ~~ 1*Y_Dy")
+})
+
 test_that("generatePopCFMDySlopeError produces correct output for weak", {
   set.seed(123)
   expect_equal(generatePopCFMDySlopeError(type = "weak")$slope, "Y_Dy ~ 0.04*X_Dy")

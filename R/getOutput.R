@@ -34,12 +34,12 @@ getParamsMLM <- function(fit, first = NULL, sampCount = NULL){
   apim_dis_A_out <- summary(fit$apim_dis_A)
   apim_dis_A_conf <- stats::confint(fit$apim_dis_A)
 
-  a1.est <- apim_dis_A_out$tTable[3,1]
-  a1.se <- apim_dis_A_out$tTable[3,2]
-  a1.test <- apim_dis_A_out$tTable[3,3]
-  a1.p <- apim_dis_A_out$tTable[3,4]
-  a1.upper <- apim_dis_A_conf[3,2]
-  a1.lower <- apim_dis_A_conf[3,1]
+  p2.est <- apim_dis_A_out$tTable[3,1]
+  p2.se <- apim_dis_A_out$tTable[3,2]
+  p2.test <- apim_dis_A_out$tTable[3,3]
+  p2.p <- apim_dis_A_out$tTable[3,4]
+  p2.upper <- apim_dis_A_conf[3,2]
+  p2.lower <- apim_dis_A_conf[3,1]
 
   a2.est <- apim_dis_A_out$tTable[2,1]
   a2.se <- apim_dis_A_out$tTable[2,2]
@@ -58,12 +58,12 @@ getParamsMLM <- function(fit, first = NULL, sampCount = NULL){
   p1.upper <- apim_dis_B_conf[3,2]
   p1.lower <- apim_dis_B_conf[3,1]
 
-  p2.est <- apim_dis_B_out$tTable[2,1]
-  p2.se <- apim_dis_B_out$tTable[2,2]
-  p2.test <- apim_dis_B_out$tTable[2,3]
-  p2.p <- apim_dis_B_out$tTable[2,4]
-  p2.upper <- apim_dis_B_conf[2,2]
-  p2.lower <- apim_dis_B_conf[2,1]
+  a1.est <- apim_dis_B_out$tTable[2,1]
+  a1.se <- apim_dis_B_out$tTable[2,2]
+  a1.test <- apim_dis_B_out$tTable[2,3]
+  a1.p <- apim_dis_B_out$tTable[2,4]
+  a1.upper <- apim_dis_B_conf[2,2]
+  a1.lower <- apim_dis_B_conf[2,1]
 
   k1.est <- p1.est/a1.est
   k2.est <- p2.est/a2.est
@@ -100,7 +100,7 @@ getParamsMLM <- function(fit, first = NULL, sampCount = NULL){
                     z = as.numeric(.data$z),
                     pvalue = as.numeric(.data$pvalue),
                     ci.lower = as.numeric(.data$ci.lower),
-                    ci.upper = as.numeric(.data$ci.upper)))
+                    ci.upper = as.numeric(.data$ci.upper))
   }
   return(params)
 }

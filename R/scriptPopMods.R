@@ -36,8 +36,8 @@ scriptPopModAPIM <- function(popModList, ...){
 
   XA_LatentVariance <- generateLVariances(var = "X", partner = "A", value = 1)
   XB_LatentVariance <- generateLVariances(var = "X", partner = "B", value = 1)
-  YA_LatentVariance <- generateLVariances(var = "Y", partner = "A", value = 1)
-  YB_LatentVariance <- generateLVariances(var = "Y", partner = "B", value = 1)
+  #YA_LatentVariance <- generateLVariances(var = "Y", partner = "A", value = 1)
+  #YB_LatentVariance <- generateLVariances(var = "Y", partner = "B", value = 1)
 
   X_ICC <- generateICCs(var = "X", type = popModList$iccX)
   Y_ICC <- generateICCs(var = "Y", type = popModList$iccY)
@@ -48,21 +48,35 @@ scriptPopModAPIM <- function(popModList, ...){
   Partner_A <- generatePartners(partner = "A", type = popModList$partnerA)
   Partner_B <- generatePartners(partner = "B", type = popModList$partnerB)
 
+  #paramList <- list(X_A_loads = X_A_loads, X_B_loads = X_B_loads, Y_A_loads = Y_A_loads, Y_B_loads = Y_B_loads,
+   #                 X_rescorrs = X_rescorrs, Y_rescorrs = Y_rescorrs,
+    #                XA_LatentVariance = XA_LatentVariance, XB_LatentVariance = XB_LatentVariance, YA_LatentVariance = YA_LatentVariance, YB_LatentVariance = YB_LatentVariance,
+     #               X_ICC = X_ICC, Y_ICC = Y_ICC,
+      #              Actor_A = Actor_A, Actor_B = Actor_B, Partner_A = Partner_A, Partner_B = Partner_B)
+
   paramList <- list(X_A_loads = X_A_loads, X_B_loads = X_B_loads, Y_A_loads = Y_A_loads, Y_B_loads = Y_B_loads,
                     X_rescorrs = X_rescorrs, Y_rescorrs = Y_rescorrs,
-                    XA_LatentVariance = XA_LatentVariance, XB_LatentVariance = XB_LatentVariance, YA_LatentVariance = YA_LatentVariance, YB_LatentVariance = YB_LatentVariance,
+                    XA_LatentVariance = XA_LatentVariance, XB_LatentVariance = XB_LatentVariance,
                     X_ICC = X_ICC, Y_ICC = Y_ICC,
                     Actor_A = Actor_A, Actor_B = Actor_B, Partner_A = Partner_A, Partner_B = Partner_B)
 
   popModParams <- saveParamLAPIM(paramList, ...)
 
 
+ # popModScript <- sprintf("#Measurement Model\n\n## Loadings\n%s\n%s\n%s\n%s\n\n## Uniquenesses\n%s\n%s\n%s\n%s\n\n## Residual Correlations\n%s\n%s\n\n# Structural Model
+  #                      \n## Latent (Co)Variances\n%s\n%s\n%s\n%s\n%s\n%s\n\n## Actor and Partner Effects\n%s\n%s\n%s\n%s",
+   #                     X_A_loads$loadings, X_B_loads$loadings, Y_A_loads$loadings, Y_B_loads$loadings,
+    #                    X_A_loads$errors, X_B_loads$errors, Y_A_loads$errors, Y_B_loads$errors,
+     #                   X_rescorrs$rescors, Y_rescorrs$rescors,
+      #                  XA_LatentVariance, XB_LatentVariance, YA_LatentVariance, YB_LatentVariance, X_ICC$icc, Y_ICC$icc,
+       #                 Actor_A$actorEffect, Actor_B$actorEffect, Partner_A$partnerEffect, Partner_B$partnerEffect)
+
   popModScript <- sprintf("#Measurement Model\n\n## Loadings\n%s\n%s\n%s\n%s\n\n## Uniquenesses\n%s\n%s\n%s\n%s\n\n## Residual Correlations\n%s\n%s\n\n# Structural Model
-                        \n## Latent (Co)Variances\n%s\n%s\n%s\n%s\n%s\n%s\n\n## Actor and Partner Effects\n%s\n%s\n%s\n%s",
+                        \n## Latent (Co)Variances\n%s\n%s\n%s\n%s\n\n## Actor and Partner Effects\n%s\n%s\n%s\n%s",
                         X_A_loads$loadings, X_B_loads$loadings, Y_A_loads$loadings, Y_B_loads$loadings,
                         X_A_loads$errors, X_B_loads$errors, Y_A_loads$errors, Y_B_loads$errors,
                         X_rescorrs$rescors, Y_rescorrs$rescors,
-                        XA_LatentVariance, XB_LatentVariance, YA_LatentVariance, YB_LatentVariance, X_ICC$icc, Y_ICC$icc,
+                        XA_LatentVariance, XB_LatentVariance, X_ICC$icc, Y_ICC$icc,
                         Actor_A$actorEffect, Actor_B$actorEffect, Partner_A$partnerEffect, Partner_B$partnerEffect)
 
   popModList <- list(popModScript = popModScript,

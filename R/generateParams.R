@@ -43,7 +43,10 @@ generatePopLoadsErrors <- function(var = "X", partner = "A", type = NULL, num = 
 
   varnames <- generateObsNames(lv, person, items)
   #determine loading values for
-  if(type == "weak"){
+  if(type == "nil"){
+    values <- rep(0, num)
+
+  }else if(type == "weak"){
     #loadings fall between .3 and .49
     values <- stats::runif(n = num, min = .3, max = .49)
 
@@ -60,7 +63,7 @@ generatePopLoadsErrors <- function(var = "X", partner = "A", type = NULL, num = 
     values <- stats::runif(n = num, min = .3, max = .99)
 
   }else{
-    stop("loadValue arguments can only be weak, moderate, strong, very strong, or mixed")
+    stop("loadValue arguments can only be nil, weak, moderate, strong, very strong, or mixed")
   }
 
   #values can be rounded to 2 decimals
@@ -230,7 +233,10 @@ generatePopResidCorrs <- function(var = "X", type = NULL, num = NULL){
   varnames_B <- generateObsNames(lv, person = "B", items)
 
   #determine residual covariances values for
-  if(type == "weak"){
+  if(type == "nil"){
+    values <- rep(0, num)
+
+  }else if(type == "weak"){
     values <- stats::runif(n = num, min = .01, max = .10)
 
   }else if(type == "moderate"){
@@ -246,7 +252,7 @@ generatePopResidCorrs <- function(var = "X", type = NULL, num = NULL){
     values <- stats::runif(n = num, min = .01, max = .41)
 
   }else{
-    stop("residCorrValues arguments can only be weak, moderate, strong, very strong, or mixed")
+    stop("residCorrValues arguments can only be nil, weak, moderate, strong, very strong, or mixed")
   }
 
   #values can be rounded to 2 decimals
@@ -272,7 +278,10 @@ generatePopResidCorrs <- function(var = "X", type = NULL, num = NULL){
 #' @rdname generateParams
 generateICCs <- function(var = "X", type = NULL){
   #determine residual covariances values for
-  if(type == "weak"){
+  if(type == "nil"){
+    values <- 0
+
+  }else if(type == "weak"){
     values <- stats::runif(n = 1, min = .01, max = .10)
 
   }else if(type == "moderate"){
@@ -307,7 +316,10 @@ generateICCs <- function(var = "X", type = NULL){
 #' @rdname generateParams
 generateIPCs <- function(var = "A", type = NULL){
   #determine residual covariances values for
-  if(type == "weak"){
+  if(type == "nil"){
+    values <- 0
+
+  }else if(type == "weak"){
     values <- stats::runif(n = 1, min = .01, max = .10)
 
   }else if(type == "moderate"){
@@ -348,7 +360,10 @@ generateLVariances <- function(var = "X", value = 1, partner = "A"){
 
 #' @rdname generateParams
 generateActors <- function(partner = "A", type = NULL){
-  if(type == "weak"){
+  if(type == "nil"){
+    values <- 0
+
+  }else if(type == "weak"){
     values <- stats::runif(n = 1, min = .01, max = .10)
 
   }else if(type == "moderate"){
@@ -386,7 +401,10 @@ generateActors <- function(partner = "A", type = NULL){
 
 #' @rdname generateParams
 generatePartners <- function(partner = "A", type = NULL){
-  if(type == "weak"){
+  if(type == "nil"){
+    values <- 0
+
+  }else if(type == "weak"){
     values <- stats::runif(n = 1, min = .01, max = .10)
 
   }else if(type == "moderate"){
@@ -424,7 +442,10 @@ generatePartners <- function(partner = "A", type = NULL){
 
 #' @rdname generateParams
 generatePopCFMDySlopeError <- function(type = NULL){
-  if(type == "weak"){
+  if(type == "nil"){
+    values <- 0
+
+  }else if(type == "weak"){
     values <- stats::runif(n = 1, min = .01, max = .10)
 
   }else if(type == "moderate"){
@@ -436,7 +457,7 @@ generatePopCFMDySlopeError <- function(type = NULL){
   }else if(type == "very strong"){
     values <- stats::runif(n = 1, min = .31, max = .41)
   }else{
-    stop("type argument can only be weak, moderate, strong, very strong, or mixed")
+    stop("type argument can only be nil, weak, moderate, strong, very strong, or mixed")
   }
 
   values <- round(values, 2)
