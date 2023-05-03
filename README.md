@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# dySim
+# dySim <a href="https://jsakaluk.github.io/dySim/"><img src="man/figures/logo.png" align="right" height="128" /></a>
 
 <!-- badges: start -->
 
@@ -10,10 +10,13 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![R-CMD-check](https://github.com/jsakaluk/dySim/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jsakaluk/dySim/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of dySim is to simplify the process of running a variety of
+The goal of `dySim` is to simplify the process of running a variety of
 simulations for the purpose of evaluating methods of dyadic data
-analysis. dySim piggybacks heavily on the `lavaan`, `simsem`, and
+analysis. `dySim` piggybacks heavily on the `lavaan`, `simsem`, and
 `dySEM` packages.
+
+The `dySim` logo was designed by the *amazing* Lowell Deranleau (for
+logo design inquiries, email: <agangofwolves@gmail.com>).
 
 ## Installation
 
