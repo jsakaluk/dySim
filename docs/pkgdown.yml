@@ -2,7 +2,7 @@ pandoc: 3.6.3
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles: {}
-last_built: 2026-03-02T19:20Z
+last_built: 2026-03-02T22:41Z
 urls:
   reference: https://jsakaluk.github.io/dySim/reference
   article: https://jsakaluk.github.io/dySim/articles
