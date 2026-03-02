@@ -6,6 +6,8 @@
 \alias{dySim-package}
 \title{dySim: Dyadic Data Analysis Simulation}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Convenience functions for simulating data using a variety of popular models of dyadic data for both data generating mechanisms and the analytic model(s) applied within simulated sample.
 }
 \seealso{
