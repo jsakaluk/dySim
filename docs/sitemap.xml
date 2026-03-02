@@ -1,39 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://jsakaluk.github.io/dySim/404.html</loc>
-  </url>
-  <url>
-    <loc>https://jsakaluk.github.io/dySim/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://jsakaluk.github.io/dySim/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://jsakaluk.github.io/dySim/index.html</loc>
-  </url>
-  <url>
-    <loc>https://jsakaluk.github.io/dySim/reference/dySim-package.html</loc>
-  </url>
-  <url>
-    <loc>https://jsakaluk.github.io/dySim/reference/generateParams.html</loc>
-  </url>
-  <url>
-    <loc>https://jsakaluk.github.io/dySim/reference/getOutput.html</loc>
-  </url>
-  <url>
-    <loc>https://jsakaluk.github.io/dySim/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://jsakaluk.github.io/dySim/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>https://jsakaluk.github.io/dySim/reference/runDySim.html</loc>
-  </url>
-  <url>
-    <loc>https://jsakaluk.github.io/dySim/reference/saveParamDf.html</loc>
-  </url>
-  <url>
-    <loc>https://jsakaluk.github.io/dySim/reference/scriptPopMods.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://jsakaluk.github.io/dySim/404.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/LICENSE.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/authors.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/index.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/aggregate_modelchoice_summary.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/apply_selection_criterion.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/calc_bias_rmse.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/create_design.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/create_modelchoice_design.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/dySim-package.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/expand_pop_values_x.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/extract_estimates.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/extract_param_estimates.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/fit_dyadic_model.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/fit_icc_model.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/generateParams.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/generate_dyadic_cor.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/generate_dyadic_data.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/generate_dyadic_uni.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/getOutput.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/get_fit_index.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/index.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/pipe.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/plot_bias.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/plot_modelchoice.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/runDySim.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/run_bias_analysis.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/run_modelchoice_analysis.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/run_one_modelchoice_scenario.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/run_one_scenario.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/run_power_analysis.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/run_simulation.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/saveParamDf.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/scriptPopMods.html</loc></url>
+<url><loc>https://jsakaluk.github.io/dySim/reference/summarize_bias_by.html</loc></url>
 </urlset>
+
